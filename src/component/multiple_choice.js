@@ -95,8 +95,19 @@ class MultipleChoice extends Component {
 
     nextquestion=()=>{
         var num = this.state.number + 1;
+        var checklist = [];
+        for (var i = 0; i < mockdata.questions[num-1].answers.length; i++){
+            var checkjson = {
+                "value": mockdata.questions[num-1].answers[i].id,
+                "label": mockdata.questions[num-1].answers[i].description,
+                "checked":false,
+            };
+            checklist.push(checkjson);
+        }
         this.setState(
             {
+                "checkbox":checklist,
+                "question":mockdata.questions[num-1].description,
                 "number": num,
             }
         )
