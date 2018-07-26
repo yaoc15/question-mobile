@@ -12,6 +12,7 @@ const mockdata = {
         {
             'id': '10',
             'description': '树叶的一生只是为了归根吗',
+            'type':'single',
             'answers': [
                 {
                     'id': '24',
@@ -28,6 +29,7 @@ const mockdata = {
         {
             'id': '18',
             'description': '树叶的一生只是为了归根吗(第二题)',
+            'type':'multiply',
             'answers': [
                 {
                     'id': '32',
@@ -53,17 +55,35 @@ const CheckboxItem = Checkbox.CheckboxItem;
 class MultipleChoice extends Component {
     onChange = (val) => {
         console.log(val);
-        var list = this.state.checkbox;
-        for (var i = 0; i < this.state.checkbox.length; i++)
-        {
-            if (this.state.checkbox[i].value == val){
-                list[i].checked = !(list[i].checked);
+        if (this.state.type == 'multiply'){
+            var list = this.state.checkbox;
+            for (var i = 0; i < this.state.checkbox.length; i++)
+            {
+                if (this.state.checkbox[i].value == val){
+                    list[i].checked = !(list[i].checked);
+                }
             }
+            console.log(list);
+            this.setState({
+                "checkbox":list
+            })
         }
-        console.log(list);
-        this.setState({
-            "checkbox":list
-        })
+        else{
+            var list = this.state.checkbox;
+            for (var i = 0; i < this.state.checkbox.length; i++)
+            {
+                if (this.state.checkbox[i].value != val){
+                    list[i].checked = false;
+                }
+                else
+                    list[i].checked = true;
+            }
+            console.log(list);
+            this.setState({
+                "checkbox":list
+            })
+        }
+
     }
 
     state = {
@@ -72,10 +92,17 @@ class MultipleChoice extends Component {
         "checkbox":[],
         "paper":{},
         "question":"",
+        "type":"",
     }
 
     componentDidMount(){
         var checklist = [];
+        var description = mockdata.questions[0].description;
+        if (mockdata.questions[0].type == 'single'){
+            description = "（单选题）" + description
+        }
+        else
+            description = "（多选题）" + description;
         for (var i = 0; i < mockdata.questions[0].answers.length; i++){
             var checkjson = {
                 "value": mockdata.questions[0].answers[i].id,
@@ -88,14 +115,21 @@ class MultipleChoice extends Component {
             "checkbox":checklist,
             "paper":mockdata,
             "sum":mockdata.questions.length,
-            "question":mockdata.questions[0].description,
+            "question":description,
             "number":1,
+            "type":mockdata.questions[0].type,
         })
     }
 
     nextquestion=()=>{
         var num = this.state.number + 1;
         var checklist = [];
+        var description = mockdata.questions[num-1].description;
+        if (mockdata.questions[num-1].type == 'single'){
+            description = "（单选题）" + description
+        }
+        else
+            description = "（多选题）" + description;
         for (var i = 0; i < mockdata.questions[num-1].answers.length; i++){
             var checkjson = {
                 "value": mockdata.questions[num-1].answers[i].id,
@@ -107,8 +141,9 @@ class MultipleChoice extends Component {
         this.setState(
             {
                 "checkbox":checklist,
-                "question":mockdata.questions[num-1].description,
+                "question":description,
                 "number": num,
+                "type":mockdata.questions[num-1].type,
             }
         )
     }
