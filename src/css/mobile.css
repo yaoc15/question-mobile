@@ -15,3 +15,19 @@
     border-radius: 50%;
     margin-right: 5px;
 }
+
+
+.testDiv { width:100vw; height:31.25vw; line-height:31.25vw; font-size:4.375vw;
+ font-weight:bold; text-align:left; color:#333333; }
+
+.checkbox-item{
+    font-size:4vw;
+}
+
+.card-footer{
+    min-height: 30vw;
+}
+
+.layout-top{
+    margin-top: 10vw;
+}

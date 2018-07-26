@@ -3,12 +3,13 @@ import {Card, WingBlank, WhiteSpace,Progress,Button,Icon,Pagination,Radio,List,C
 import 'antd-mobile/dist/antd-mobile.css'
 import '../css/mobile.css'
 const data = [
-    { value: 0, label: 'Ph.D.',checked:false },
-    { value: 1, label: 'Bachelor',checked:false },
-    { value: 2, label: 'College diploma' ,checked:false},
+    { value: 0, label: '希腊雅典',checked:false },
+    { value: 1, label: '奥林匹斯山',checked:false },
+    { value: 2, label: '古巴比伦' ,checked:false},
+    { value: 3, label: '埃及', checked:false},
 ];
 const CheckboxItem = Checkbox.CheckboxItem;
-class QuestionCard extends Component {
+class SingleChoice extends Component {
     onChange = (val) => {
         console.log(val);
         var list = this.state.checkbox;
@@ -45,16 +46,20 @@ class QuestionCard extends Component {
                         extra = {<Button className="arrow-align" inline>下一题<Icon type = "right"/></Button>}>
                     </Card.Header>
                     <Card.Body>
-                        <div>This is content of `Card`</div>
+                        <div className='testDiv'>（单选题）奥林匹克运动的发祥地在何处？</div>
                         <List>
                             {this.state.checkbox.map(i => (
-                                <CheckboxItem checked={i.checked} key={i.value} onChange={() => this.onChange(i.value)}>
-                                    {i.label}
-                                </CheckboxItem>
+                                <WingBlank size="lg">
+                                    <CheckboxItem checked={i.checked} key={i.value} onChange={() => this.onChange(i.value)}>
+                                        <span className="checkbox-item">{i.label}</span>
+                                    </CheckboxItem>
+                                </WingBlank>
                             ))}
                         </List>
                     </Card.Body>
-                    <Card.Footer content="footer content" extra={<div>extra footer content</div>} />
+                    <Card.Footer
+                        content = {<div className="card-footer"></div>}>
+                    </Card.Footer>
                 </Card>
                 <WhiteSpace size="lg" />
             </WingBlank>
@@ -62,4 +67,4 @@ class QuestionCard extends Component {
     }
 }
 
-export default QuestionCard;
+export default SingleChoice;
