@@ -27,16 +27,16 @@ const mockdata = {
         },
         {
             'id': '18',
-            'description': '树叶的一生只是为了归根吗',
+            'description': '树叶的一生只是为了归根吗(第二题)',
             'answers': [
                 {
                     'id': '32',
-                    'description': '是',
+                    'description': '是（第二题）',
                     'label': '1'
                 },
                 {
                     'id': '33',
-                    'description': '不是',
+                    'description': '不是（第二题）',
                     'label': '0'
                 },
             ]
@@ -71,13 +71,24 @@ class MultipleChoice extends Component {
         "number":0,
         "checkbox":[],
         "paper":{},
+        "question":"",
     }
 
     componentDidMount(){
+        var checklist = [];
+        for (var i = 0; i < mockdata.questions[0].answers.length; i++){
+            var checkjson = {
+                "value": mockdata.questions[0].answers[i].id,
+                "label": mockdata.questions[0].answers[i].description,
+                "checked":false,
+            };
+            checklist.push(checkjson);
+        }
         this.setState({
-            "checkbox":data,
+            "checkbox":checklist,
             "paper":mockdata,
             "sum":mockdata.questions.length,
+            "question":mockdata.questions[0].description,
             "number":1,
         })
     }
@@ -100,7 +111,7 @@ class MultipleChoice extends Component {
                         extra = {<Button className="arrow-align" inline onClick = {this.nextquestion}>下一题<Icon type = "right"/></Button>}>
                     </Card.Header>
                     <Card.Body>
-                        <div className='testDiv'>（单选题）奥林匹克运动的发祥地在何处？</div>
+                        <div className='testDiv'>{this.state.question}</div>
                         <List>
                             {this.state.checkbox.map(i => (
                                 <WingBlank size="lg">
