@@ -1,0 +1,10 @@
+.progress {
+     margin-right: 5px;
+     width: 100%;
+ }
+
+.arrow-align {
+    display: flex;
+    align-items: center;
+    float:right;
+}
