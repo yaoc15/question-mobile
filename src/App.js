@@ -10,7 +10,7 @@ import MultipleChoice from './component/multiple_choice'
 const mockdata = {
     'errcode': '0',
     'id': '5',
-    'description':  '大一新生数学',
+    'description':  '大一新生aaaaa数学',
     'deadline': '2018-08-10 00:00:00',
     'number': '300',
     'questions': [
